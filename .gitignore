@@ -15,6 +15,7 @@ credentials.json
 service-account*.json
 .dev.vars
 .dev.vars.*
+!.dev.vars.example
 wrangler.toml.local
 
 # Dependencies and build output (templates/examples may be installed locally)

@@ -1,8 +1,11 @@
-# 22 — JavaScript
+# 22 — JavaScript and TypeScript
 
-Language fundamentals that both `apps/web` and `apps/api` rely on.
-TypeScript is assumed throughout this playbook; this section is about the
-JavaScript underneath it.
+Language fundamentals that both `apps/web` and `apps/api` rely on. This
+playbook writes TypeScript everywhere (`TypeScript strict everywhere` is
+a repo-wide rule, not a suggestion), so this section covers the
+JavaScript underneath it **and** the type system on top of it.
+
+## JavaScript
 
 | Document | Answers |
 | --- | --- |
@@ -17,9 +20,21 @@ JavaScript underneath it.
 | [memory-and-performance.md](memory-and-performance.md) | GC basics, avoiding leaks, hot-path costs. |
 | [anti-patterns.md](anti-patterns.md) | The mistakes that show up in review, with fixes. |
 
+## TypeScript
+
+| Document | Answers |
+| --- | --- |
+| [typescript-configuration.md](typescript-configuration.md) | `tsconfig.json` strict flags explained; monorepo project references; `apps/*` vs `packages/*` configs. |
+| [types-vs-interfaces.md](types-vs-interfaces.md) | `type` vs `interface`; when each wins; extending and composing. |
+| [generics.md](generics.md) | Generic functions and types; constraints; the built-in utility types worth knowing. |
+| [type-narrowing.md](type-narrowing.md) | Control-flow narrowing, type guards, discriminated unions, exhaustiveness checks. |
+| [advanced-types.md](advanced-types.md) | `satisfies`, mapped/conditional types, template literal types, branded types — used sparingly, with the line for when it's too clever. |
+| [typescript-anti-patterns.md](typescript-anti-patterns.md) | `any`, non-null assertions, type assertions vs guards, enum pitfalls — with fixes. |
+
 ## Baseline
 
 Target modern evergreen browsers and Node 22+. No transpilation for
 syntax the last two years of both support (optional chaining, nullish
 coalescing, top-level await, `Array.prototype.at`, `structuredClone`,
-`Object.hasOwn`). Vite/tsc handle the rest.
+`Object.hasOwn`). Vite/tsc handle the rest. TypeScript target `ES2022`,
+`strict: true` everywhere — see [typescript-configuration.md](typescript-configuration.md).

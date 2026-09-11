@@ -43,7 +43,7 @@ Starting a new React project?
 
 Starting a backend?
 → 02-backend/             framework-agnostic structure and layering
-→ 22-javascript/          language fundamentals
+→ 22-javascript/          language fundamentals — JavaScript and TypeScript
 → 06-nodejs/              runtime behaviour, production config
 → 07-express/  or  08-hono/
 → 05-apis/                REST contracts, errors, pagination
@@ -102,7 +102,7 @@ Working with Claude Code on the project?
 19-reusable-patterns/        copy-ready code: result types, error classes, pagination, API client, hooks
 20-project-templates/        starting structures: react-vite, express-node, hono-worker, drizzle-postgres, fullstack
 21-checklists/               one-page checklists for every phase
-22-javascript/               modern syntax, async, closures, immutability, memory, anti-patterns
+22-javascript/               modern JS syntax, async, closures, memory, TypeScript types/generics/narrowing, anti-patterns
 23-decision-guides/          decision trees for the recurring architectural choices
 24-claude-skills/            CLAUDE.md template and Claude Code skills to add to each project
 examples/                    small, complete examples referenced from the docs

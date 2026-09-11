@@ -1,0 +1,3 @@
+# Local secrets for `wrangler dev`. Copy to .dev.vars (git-ignored).
+JWT_SECRET=replace-with-48-random-bytes-base64url
+EMAIL_API_KEY=
