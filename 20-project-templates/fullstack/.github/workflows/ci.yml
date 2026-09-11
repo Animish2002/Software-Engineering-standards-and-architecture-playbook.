@@ -1,0 +1,55 @@
+name: ci
+on:
+  pull_request:
+  push:
+    branches: [main]
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_USER: app
+          POSTGRES_PASSWORD: app
+          POSTGRES_DB: app_test
+        ports: ["5432:5432"]
+        options: --health-cmd "pg_isready -U app" --health-interval 5s --health-timeout 3s --health-retries 10
+    env:
+      NODE_ENV: test
+      DATABASE_URL: postgres://app:app@localhost:5432/app_test
+      JWT_SECRET: ${{ secrets.TEST_JWT_SECRET }}
+      JWT_REFRESH_SECRET: ${{ secrets.TEST_JWT_REFRESH_SECRET }}
+      CORS_ORIGIN: http://localhost:5173
+      R2_ACCOUNT_ID: test
+      R2_ACCESS_KEY_ID: test
+      R2_SECRET_ACCESS_KEY: test
+      R2_BUCKET_NAME: test
+      EMAIL_API_KEY: test
+      EMAIL_FROM: noreply@example.com
+      EMAIL_FROM_NAME: Test
+      TURNSTILE_SECRET_KEY: 1x0000000000000000000000000000000AA
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run db:migrate && npm run db:seed:rbac && npm run db:check
+      - run: npm run build
+      - name: API tests
+        run: |
+          npm run start -w apps/api &
+          npx wait-on -t 30000 http://localhost:4000/health
+          npm run test:api
+      - run: npm audit --audit-level=high

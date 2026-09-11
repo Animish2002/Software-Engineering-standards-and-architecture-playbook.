@@ -1,0 +1,35 @@
+{
+  "name": "app",
+  "private": true,
+  "version": "0.1.0",
+  "workspaces": ["apps/*", "packages/*"],
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "dev:web": "npm run dev -w apps/web",
+    "dev:api": "npm run dev -w apps/api",
+    "build:packages": "npm run build -w packages/shared-types -w packages/validation -w packages/db -w packages/storage",
+    "build:api": "npm run build:packages && npm run build -w apps/api",
+    "build:web": "npm run build -w apps/web",
+    "build": "npm run build:api && npm run build:web",
+    "typecheck": "npm run typecheck -ws --if-present",
+    "lint": "npm run lint -ws --if-present",
+    "test": "npm run test -ws --if-present",
+    "test:api": "npm run test:api -w apps/api",
+    "db:generate": "drizzle-kit generate --config packages/db/drizzle.config.ts",
+    "db:migrate": "tsx --env-file=.env.local packages/db/src/scripts/migrate.ts",
+    "db:check": "tsx --env-file=.env.local packages/db/src/scripts/check.ts",
+    "db:seed:rbac": "tsx --env-file=.env.local packages/db/src/seed/rbac.ts",
+    "db:seed": "tsx --env-file=.env.local packages/db/src/seed/demo.ts",
+    "db:studio": "drizzle-kit studio --config packages/db/drizzle.config.ts"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.20.0",
+    "drizzle-kit": "^0.31.0",
+    "eslint": "^9.20.0",
+    "prettier": "^3.5.0",
+    "prettier-plugin-tailwindcss": "^0.6.11",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0",
+    "typescript-eslint": "^8.24.0"
+  }
+}

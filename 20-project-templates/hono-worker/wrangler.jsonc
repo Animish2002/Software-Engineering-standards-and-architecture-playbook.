@@ -1,0 +1,31 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "app-worker",
+  "main": "src/index.ts",
+  "compatibility_date": "2025-09-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": { "enabled": true },
+
+  "vars": { "CORS_ORIGIN": "http://localhost:5173", "LOG_LEVEL": "debug" },
+  "hyperdrive": [{ "binding": "DB", "id": "REPLACE_WITH_DEV_HYPERDRIVE_ID", "localConnectionString": "postgres://app:app@localhost:5433/app" }],
+  "r2_buckets": [{ "binding": "FILES", "bucket_name": "app-files-dev" }],
+  "kv_namespaces": [{ "binding": "CACHE", "id": "REPLACE" }],
+
+  "env": {
+    "staging": {
+      "vars": { "CORS_ORIGIN": "https://staging.example.com", "LOG_LEVEL": "info" },
+      "hyperdrive": [{ "binding": "DB", "id": "REPLACE_STAGING" }],
+      "r2_buckets": [{ "binding": "FILES", "bucket_name": "app-files-staging" }],
+      "kv_namespaces": [{ "binding": "CACHE", "id": "REPLACE" }],
+      "routes": [{ "pattern": "api-staging.example.com", "custom_domain": true }]
+    },
+    "production": {
+      "vars": { "CORS_ORIGIN": "https://app.example.com", "LOG_LEVEL": "info" },
+      "hyperdrive": [{ "binding": "DB", "id": "REPLACE_PROD" }],
+      "r2_buckets": [{ "binding": "FILES", "bucket_name": "app-files-prod" }],
+      "kv_namespaces": [{ "binding": "CACHE", "id": "REPLACE" }],
+      "routes": [{ "pattern": "api.example.com", "custom_domain": true }]
+    }
+  }
+  // Secrets (JWT_SECRET, EMAIL_API_KEY, ...) via `wrangler secret put NAME --env <env>`; locally in .dev.vars
+}

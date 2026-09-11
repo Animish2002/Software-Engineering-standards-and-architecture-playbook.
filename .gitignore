@@ -1,0 +1,46 @@
+# Secrets and environment files: never commit these
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+secrets/
+**/secrets/
+*.secret
+*.token
+credentials.json
+service-account*.json
+.dev.vars
+.dev.vars.*
+wrangler.toml.local
+
+# Dependencies and build output (templates/examples may be installed locally)
+node_modules/
+dist/
+build/
+.wrangler/
+.turbo/
+coverage/
+*.tsbuildinfo
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+*.swp
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-error.log*
+
+# Claude Code local state
+.claude/settings.local.json

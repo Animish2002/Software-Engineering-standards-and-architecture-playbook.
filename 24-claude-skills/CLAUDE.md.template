@@ -1,0 +1,105 @@
+# {{PROJECT_NAME}}
+
+## What this project is
+
+{{One paragraph: what the product does, who it's for, and — if relevant —
+that it's a real production system rather than a prototype. State
+explicitly whether there is a "mock" layer or everything is real, since
+that single fact shapes how confidently an assistant can suggest changes
+to storage/auth/data.}}
+
+## Current scope
+
+{{The living, evolving section. Every time a feature, endpoint, schema
+change, or policy decision ships, add a bullet here — not as a separate
+follow-up. This is the section an assistant reads to avoid re-implementing
+something that already exists, or contradicting a deliberate decision
+(e.g. "soft delete only, no permanent delete, on purpose" or "no Guest
+account type, on purpose"). Prefer stating the *why* alongside the *what*
+so a future session doesn't "fix" an intentional constraint.}}
+
+## Target architecture / stack
+
+- Web: {{React + Vite / Next.js / ...}}, TypeScript, Tailwind CSS, shadcn/ui
+- Backend: {{Node.js + Express / Hono on Cloudflare Workers}}, TypeScript
+- ORM/migrations: Drizzle ORM + drizzle-kit
+- Database: {{PostgreSQL / MySQL}}
+- Auth: {{JWT access + httpOnly refresh cookie / server sessions}}
+- Storage: {{Cloudflare R2 / S3-compatible}} via an `IStorageProvider` interface
+- Package manager: npm workspaces monorepo
+- TypeScript strict mode everywhere
+
+See the full standards this project follows:
+`D:\write-new-ways` — in particular:
+[00-engineering-principles](../../00-engineering-principles/README.md),
+[02-backend](../../02-backend/README.md),
+[03-databases](../../03-databases/README.md),
+[04-drizzle-orm](../../04-drizzle-orm/README.md),
+[05-apis](../../05-apis/README.md),
+[10-frontend](../../10-frontend/README.md),
+[15-security](../../15-security/README.md),
+[23-decision-guides](../../23-decision-guides/README.md).
+
+## Monorepo structure
+
+```text
+apps/web              {{frontend framework}} dashboard
+apps/api              {{backend framework}} backend
+packages/db            Drizzle schema + migrations + db client
+packages/shared-types  Types shared across apps
+packages/validation    Zod schemas shared between api and web forms
+packages/storage       Storage provider abstraction
+```
+
+## Environment variables
+
+Root `.env.local` (git-ignored; copy from `.env.example`):
+{{DATABASE_URL, JWT_SECRET, JWT_REFRESH_SECRET, PORT, NODE_ENV,
+CORS_ORIGIN, storage credentials, email provider credentials, ...}}
+`apps/web/.env.local`: `VITE_API_URL`.
+
+## RBAC — data-driven pattern
+
+{{If the project uses permission-key RBAC (the default in this
+playbook), describe the roles and their key lists here, and point at
+[02-backend/authorization.md](../../02-backend/authorization.md). Never
+let an assistant hardcode role-name checks — this section is what stops
+that.}}
+
+## Coding conventions
+
+- TypeScript strict everywhere.
+- `packages/shared-types` is the source of truth for cross-boundary shapes — don't redeclare them inline.
+- `packages/validation` Zod schemas are shared between API request validation and frontend forms.
+- API envelope: `{ success: true, data: T } | { success: false, error: { message, code? } }`.
+- shadcn/ui components via the CLI — don't hand-roll buttons/dialogs/tables/dropdowns/forms.
+- No business logic in React components — keep it in `apps/web/src/lib/api/*`; real logic lives in `apps/api/src/services/*`.
+- `apps/api` layering: `routes/` → `controllers/` → `services/` → `lib/` → `middleware/`.
+- **Router mounting**: every router with a single path prefix is mounted with that prefix; an unprefixed router (if one genuinely spans several prefixes) is registered last.
+
+## Commands (root package.json)
+
+```text
+{{npm run dev:web / dev:api / build:web / build:api / lint:web / db:generate / db:migrate / db:check / db:seed / db:seed:rbac / test:api}}
+```
+
+## Keeping docs current
+
+[README.md](../../README.md) is the human-facing snapshot — every real API
+endpoint, the RBAC model, the schema, frontend routes, known gaps. Update
+it in the same session as any change that adds/removes/changes an
+endpoint, the permission model, or the schema.
+
+[CHANGELOG.md](../../CHANGELOG.md) records notable changes, newest first.
+Update it when a round of changes is finalized, as part of finishing the
+work.
+
+## What NOT to do
+
+- Don't hardcode role-name checks — always go through `hasPermission`.
+- Don't `fetch` from a page/component — route everything through `@/lib/api`.
+- Don't reintroduce a mock/`localStorage` data layer if the project has already gone real end-to-end.
+- Don't introduce a native browser dialog (`alert`/`confirm`/`prompt`, `<input webkitdirectory>`, an extra `beforeunload`). See [10-frontend/error-and-loading-states.md](../../10-frontend/error-and-loading-states.md).
+- Don't launch or drive `apps/web` yourself to test changes — no dev server, no Playwright/browser automation. The user verifies UI themselves; stop at `build`/`lint`/`typecheck`. `apps/api` is different — curl-testing against a locally-run dev server is normal.
+- Don't cite a sibling/reference project as the reason for a design decision — justify choices on their own engineering merits.
+- {{Add project-specific "don't"s as they're discovered — each one usually comes from a real mistake made once and worth preventing forever.}}
