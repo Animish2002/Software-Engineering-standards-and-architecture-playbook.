@@ -72,6 +72,14 @@ Re-verify against official documentation when a major version changes.
 | Docker | Engine 27+, Compose v2 | https://docs.docker.com |
 | Kubernetes | 1.30+ | https://kubernetes.io/docs/ |
 | Zod | 3.x / 4.x | https://zod.dev |
+| Arctic (OAuth client) | 3.x | https://arcticjs.dev |
+| openid-client | 6.x | https://github.com/panva/openid-client |
+| Better Auth | 1.x | https://better-auth.com/docs |
+| AWS SDK S3 client | v3 (`@aws-sdk/client-s3`, `@aws-sdk/s3-request-presigner`) | https://docs.aws.amazon.com/sdk-for-javascript/ |
+| file-type | 22.x (ESM-only) | https://github.com/sindresorhus/file-type |
+| sharp | 0.35.x | https://sharp.pixelplumbing.com |
+| prom-client | 15.x | https://github.com/siimon/prom-client |
+| Sentry (Node / React) | 10.x | https://docs.sentry.io |
 
 ## Local conventions
 

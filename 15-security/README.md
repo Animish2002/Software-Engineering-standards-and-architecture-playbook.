@@ -19,6 +19,11 @@ default control, and what it looks like in this stack's code.
 | [dependencies.md](dependencies.md) | Supply chain: audits, lockfiles, updates. |
 | [security-checklist.md](security-checklist.md) | The one-page checklist. |
 
+Two adjacent areas have their own sections:
+[26-oauth/security.md](../26-oauth/security.md) for social login and SSO, and
+[25-file-handling/validation-and-security.md](../25-file-handling/validation-and-security.md)
+for uploads.
+
 ## Principles
 
 1. **Least privilege**: users, tokens, database roles, storage tokens, CI credentials, containers.

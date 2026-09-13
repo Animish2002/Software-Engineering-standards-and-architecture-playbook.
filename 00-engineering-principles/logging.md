@@ -82,3 +82,4 @@ console.log(JSON.stringify(req.body));
 - [error-handling.md](error-handling.md)
 - [06-nodejs/logging.md](../06-nodejs/logging.md)
 - [05-apis/observability.md](../05-apis/observability.md)
+- [27-observability/README.md](../27-observability/README.md) (metrics, alerting, dashboards — everything after logs)

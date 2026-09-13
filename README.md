@@ -55,11 +55,20 @@ Using PostgreSQL / MySQL + Drizzle?
 → 20-project-templates/drizzle-postgres/
 → 21-checklists/database-checklist.md
 
+Accepting file uploads?
+→ 25-file-handling/        presigned uploads, validation, storage, serving
+→ 25-file-handling/file-handling-checklist.md
+
+Adding "Sign in with Google/Microsoft"?
+→ 26-oauth/                the flow, choosing a library, providers, account linking
+→ 26-oauth/oauth-checklist.md
+
 Deploying?
 → 13-docker/
 → 14-kubernetes/          (read "when not to use it" first)
 → 09-cloudflare/
 → 18-devops/
+→ 27-observability/        know when it breaks before users tell you
 → 21-checklists/production-checklist.md
 
 Making a decision?
@@ -74,8 +83,8 @@ Working with Claude Code on the project?
 | Tier | Technologies | Notes |
 | --- | --- | --- |
 | **Core (used on every project)** | JavaScript/TypeScript, React, Vite, Tailwind CSS, shadcn/ui, Node.js, Express or Hono, PostgreSQL or MySQL, Drizzle ORM, Git, GitHub | Documented in depth. |
-| **Recommended supporting** | Zod (validation), pino (logging), Vitest (tests), ESLint + Prettier, Docker, GitHub Actions, Cloudflare (Workers, Pages, R2), TanStack Query (server state), React Router | Needed to make the core stack production-ready. Each is justified where introduced. |
-| **Optional (only when the need is proven)** | Kubernetes, Redis, message queues, Durable Objects, Playwright (E2E), OpenTelemetry, Zustand | Each has a "when not to use it" section. Do not add them by default. |
+| **Recommended supporting** | Zod (validation), pino (logging), Vitest (tests), ESLint + Prettier, Docker, GitHub Actions, Cloudflare (Workers, Pages, R2), TanStack Query (server state), React Router, Sentry (error tracking), Arctic (OAuth), AWS SDK v3 S3 client (object storage) | Needed to make the core stack production-ready. Each is justified where introduced. |
+| **Optional (only when the need is proven)** | Kubernetes, Redis, message queues, Durable Objects, Playwright (E2E), OpenTelemetry, Zustand, prom-client (metrics), sharp (image processing), Better Auth / openid-client (auth frameworks) | Each has a "when not to use it" section. Do not add them by default. |
 
 ## Directory structure
 
@@ -105,6 +114,9 @@ Working with Claude Code on the project?
 22-javascript/               modern JS syntax, async, closures, memory, TypeScript types/generics/narrowing, anti-patterns
 23-decision-guides/          decision trees for the recurring architectural choices
 24-claude-skills/            CLAUDE.md template and Claude Code skills to add to each project
+25-file-handling/            uploads, validation, storage keys, serving, image processing
+26-oauth/                    social login and SSO: the flow, libraries, providers, account linking
+27-observability/            metrics, error tracking, alerting and SLOs, dashboards, tracing
 examples/                    small, complete examples referenced from the docs
 ```
 
@@ -116,6 +128,9 @@ examples/                    small, complete examples referenced from the docs
 | Design a schema and make it fast | 03-databases/schema-design.md → constraints.md → indexing.md → query-optimization.md → 04-drizzle-orm/ |
 | Stop duplicating React UI | 10-frontend/components/ → 12-shadcn/composition.md → 11-tailwind/avoiding-duplication.md |
 | Ship to production safely | 21-checklists/production-checklist.md → 13-docker → 18-devops/ci-cd.md → 15-security/security-checklist.md |
+| Accept file uploads without a security hole | 25-file-handling/upload-strategies.md → validation-and-security.md → serving-and-access.md |
+| Add social login | 26-oauth/how-it-works.md → choosing-a-library.md → implementation.md → account-linking.md |
+| Find out about outages before users do | 27-observability/README.md → error-tracking.md → alerting-and-slos.md |
 | Decide between two options | 23-decision-guides/ |
 
 ## Keeping the standards current

@@ -18,3 +18,7 @@ Longer, explained versions live in the sections they summarise.
 Docker and Kubernetes have their own: [13-docker/production-checklist.md](../13-docker/production-checklist.md),
 [14-kubernetes/production-checklist.md](../14-kubernetes/production-checklist.md).
 Deployment: [18-devops/deployment-checklist.md](../18-devops/deployment-checklist.md).
+
+Feature-specific: [25-file-handling/file-handling-checklist.md](../25-file-handling/file-handling-checklist.md),
+[26-oauth/oauth-checklist.md](../26-oauth/oauth-checklist.md),
+[27-observability/observability-checklist.md](../27-observability/observability-checklist.md).

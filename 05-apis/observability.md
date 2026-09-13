@@ -1,5 +1,9 @@
 # API observability
 
+The request-level minimum for an API. Metrics, error tracking, alerting,
+SLOs, dashboards, and tracing are covered in depth in
+[27-observability/](../27-observability/).
+
 ## The three questions
 
 1. **Is it up?** Health endpoints + external uptime check.
@@ -37,6 +41,7 @@
 
 ## Related
 
+- [27-observability/README.md](../27-observability/README.md)
 - [02-backend/logging.md](../02-backend/logging.md)
 - [02-backend/production-readiness.md](../02-backend/production-readiness.md)
 - [17-performance/profiling.md](../17-performance/profiling.md)

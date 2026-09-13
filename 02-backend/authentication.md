@@ -69,6 +69,14 @@ res.cookie('refresh_token', token, {
 });
 ```
 
+## Social login
+
+"Sign in with Google/Microsoft" replaces the credential check, not this
+session system: the OAuth callback ends by calling the same session-issuing
+code as `POST /auth/login`. See [26-oauth/](../26-oauth/), and
+[26-oauth/implementation.md](../26-oauth/implementation.md) for where the two
+meet.
+
 ## Alternative: server sessions
 
 A `sessions` table + opaque session id cookie. Simpler revocation, one DB
@@ -104,3 +112,4 @@ are same-site and there is no mobile client. See
 
 - [15-security/jwt.md](../15-security/jwt.md), [15-security/sessions.md](../15-security/sessions.md)
 - [10-frontend/api-integration.md](../10-frontend/api-integration.md) (client-side refresh flow)
+- [26-oauth/README.md](../26-oauth/README.md) (social login and SSO)
